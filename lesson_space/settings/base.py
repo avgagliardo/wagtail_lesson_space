@@ -13,8 +13,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
-PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE_DIR = os.path.dirname(PROJECT_DIR)
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))  # → .../lesson_space/lesson_space/settings
+BASE_DIR = os.path.dirname(os.path.dirname(PROJECT_DIR))  # → .../lesson_space
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "test-secret-key")
 
 
@@ -82,7 +82,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            os.path.join(PROJECT_DIR, "templates"),
+            os.path.join(BASE_DIR, "lesson_space", "templates"),
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -149,12 +149,13 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
-STATICFILES_DIRS = [
-    os.path.join(PROJECT_DIR, "static"),
-]
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "lesson_space", "static"),
+    # os.path.join(BASE_DIR, "lesson_space", "lesson_space", "static"),  # 
+]
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
