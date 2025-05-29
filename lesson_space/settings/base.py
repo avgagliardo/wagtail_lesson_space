@@ -18,6 +18,11 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "test-secret-key")
 
 
+# Set some allowed hosts
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "testserver", "0.0.0.0", "44.223.61.91"]
+
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 

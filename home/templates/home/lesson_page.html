@@ -6,6 +6,8 @@
   <p><strong>Domain:</strong> {{ page.domain }}</p>
 
   <div class="lesson-body">
-    {{ page.body }}
+    {% for block in page.body %}
+      {{ block }}
+    {% endfor %}
   </div>
 {% endblock %}
