@@ -4,9 +4,16 @@ from wagtail.fields import StreamField
 from wagtail.admin.panels import FieldPanel
 from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
-from taggit.models import TaggedItemBase
 from modelcluster.fields import ParentalKey
-from modelcluster.tags import ClusterTaggableManager
+
+# These are deprecated
+#from taggit.models import TaggedItemBase
+#from modelcluster.tags import ClusterTaggableManager
+
+# These are current 
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from taggit.models import TaggedItemBase
+
 
 
 class LessonPageTag(TaggedItemBase):
