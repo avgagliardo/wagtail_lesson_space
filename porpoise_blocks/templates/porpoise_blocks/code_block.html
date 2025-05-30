@@ -1,0 +1,9 @@
+{# code_block.html #}
+<pre class="code-block code-style-{{ self.style|default:'default' }}" data-lang="{{ self.language }}">
+    {% if self.caption %}
+        <div class="code-caption">{{ self.caption }}</div>
+    {% endif %}
+    <code class="language-{{ self.language|default:'text' }}">
+        {{ self.code|escape }}
+    </code>
+</pre>

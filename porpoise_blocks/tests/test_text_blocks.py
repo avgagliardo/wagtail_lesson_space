@@ -1,8 +1,13 @@
 import pytest
 from unittest.mock import MagicMock, patch
-from wagtail.blocks import StreamBlockValidationError, StructBlockValidationError, RichTextBlock, ChoiceBlock
-from porpoise_blocks.text_blocks import HeadingBlock, ParagraphBlock, CalloutBlock
+
 from wagtail.rich_text import RichText 
+from wagtail.blocks import StreamBlockValidationError, StructBlockValidationError, RichTextBlock, ChoiceBlock
+from wagtail.blocks import StreamValue
+
+from porpoise_blocks.text_blocks import HeadingBlock, ParagraphBlock
+from porpoise_blocks.text_blocks import CalloutBlock, QuoteBlock, CodeBlock
+
 
 # Helper Class to test the valid input and clean methods
 class MockRichTextInput:
@@ -12,8 +17,6 @@ class MockRichTextInput:
 #########################
 # TESTS GO BELOW HERE
 #########################
-
-
 
 # Heading block tests
 def test_heading_block_meta():
@@ -61,7 +64,6 @@ def test_callout_block_custom_styles():
     choices = dict(block.child_blocks["style"].choices)
     assert choices == dict(custom_styles)
 
-
 def test_callout_block_clean_valid_input():
     block = CalloutBlock()
 
@@ -96,3 +98,88 @@ def test_callout_block_clean_rejects_invalid_style():
     }
     with pytest.raises(StructBlockValidationError):
         block.clean(data)
+
+
+
+
+
+
+def test_quote_block_clean_valid_input():
+    block = QuoteBlock()
+
+    struct_value = block.to_python({
+        "quote": "<p>To be or not to be.</p>",
+        "attribution": "Shakespeare",
+        "style": "highlight",
+    })
+
+    cleaned = block.clean(struct_value)
+    assert cleaned["style"] == "highlight"
+    assert cleaned["attribution"] == "Shakespeare"
+    assert isinstance(cleaned["quote"], RichText)
+
+
+def test_quote_block_clean_minimal():
+    block = QuoteBlock()
+
+    struct_value = block.to_python({
+        "quote": "<p>Just do it.</p>",
+    })
+
+    cleaned = block.clean(struct_value)
+    assert cleaned.get("style", "default") == "default"
+    assert cleaned.get("attribution") in (None, "")
+    assert isinstance(cleaned["quote"], RichText)
+
+
+def test_code_block_clean_valid_input():
+    block = CodeBlock()
+
+    struct_value = block.to_python({
+        "language": "python",
+        "code": "print('Hello, world!')",
+        "caption": "example.py",
+        "style": "lined",
+    })
+
+    cleaned = block.clean(struct_value)
+    assert cleaned["language"] == "python"
+    assert cleaned["code"] == "print('Hello, world!')"
+    assert cleaned["caption"] == "example.py"
+    assert cleaned["style"] == "lined"
+
+
+def test_code_block_clean_minimal():
+    block = CodeBlock()
+
+    struct_value = block.to_python({
+        "language": "text",
+        "code": "plain text only",
+    })
+
+    cleaned = block.clean(struct_value)
+    assert cleaned.get("caption") in (None, "")
+    assert cleaned.get("style", "default") == "default"
+    assert cleaned["language"] == "text"
+    assert cleaned["code"] == "plain text only"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

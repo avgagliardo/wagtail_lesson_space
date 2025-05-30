@@ -1,0 +1,8 @@
+{# quote_block.html #}
+{% load wagtailcore_tags %}
+<blockquote class="quote-block quote-style-{{ self.style|default:'default' }}">
+    <div class="quote-text">{{ self.quote|richtext }}</div>
+    {% if self.attribution %}
+        <footer class="quote-attribution">&mdash; {{ self.attribution }}</footer>
+    {% endif %}
+</blockquote>

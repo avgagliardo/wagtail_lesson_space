@@ -1,6 +1,7 @@
 from wagtail import blocks
 from wagtail.blocks import ChoiceBlock, RichTextBlock, CharBlock, StructBlock
 
+# Heading Block (Extension)
 class HeadingBlock(blocks.CharBlock):
     """
     A short heading block (e.g., section titles).
@@ -23,7 +24,7 @@ class HeadingBlock(blocks.CharBlock):
     #     class Meta:
     #         template = "blocks/heading_block.html"
 
-
+# Paragraph Block (Extension)
 class ParagraphBlock(blocks.RichTextBlock):
     """
     A rich text paragraph block for standard body content.
@@ -47,7 +48,7 @@ class ParagraphBlock(blocks.RichTextBlock):
     #         raise ValidationError("Heading too long.")
     #     return super().clean(value)
 
-
+# Callout Block
 class CalloutBlock(StructBlock):
     title = CharBlock(required=False, help_text="Optional short heading")
     body = RichTextBlock(features=["bold", "italic", "link", "ul", "ol"])
@@ -100,3 +101,74 @@ class CalloutBlock(StructBlock):
 
 
 
+
+
+# Quote Block
+class QuoteBlock(blocks.StructBlock):
+    quote = blocks.RichTextBlock(
+        features=["bold", "italic", "link"],
+        label="Quote",
+        help_text="The main quoted text."
+    )
+    attribution = blocks.CharBlock(
+        required=False,
+        label="Attribution",
+        help_text="Who said it (optional)."
+    )
+    style = blocks.ChoiceBlock(
+        choices=[
+            ("default", "Default"),
+            ("highlight", "Highlighted"),
+            ("bordered", "Bordered"),
+        ],
+        default="default",
+        required=False,
+        label="Style",
+        help_text="Visual style of the quote block."
+    )
+
+    class Meta:
+        icon = "openquote"
+        label = "Quote"
+        template = "blocks/quote_block.html"
+
+# Code Block
+class CodeBlock(blocks.StructBlock):
+    language = blocks.ChoiceBlock(
+        choices=[
+            ("text", "Plain Text"),
+            ("python", "Python"),
+            ("bash", "Bash"),
+            ("json", "JSON"),
+            ("html", "HTML"),
+            ("javascript", "JavaScript"),
+        ],
+        default="text",
+        label="Language",
+        help_text="Programming language for syntax highlighting."
+    )
+    code = blocks.TextBlock(
+        label="Code",
+        help_text="The source code block."
+    )
+    caption = blocks.CharBlock(
+        required=False,
+        label="Caption",
+        help_text="Optional filename or note."
+    )
+    style = blocks.ChoiceBlock(
+        choices=[
+            ("default", "Default"),
+            ("box", "Boxed"),
+            ("lined", "Box + Line Numbers"),
+        ],
+        default="default",
+        required=False,
+        label="Style",
+        help_text="Visual style of the code block."
+    )
+
+    class Meta:
+        icon = "code"
+        label = "Code"
+        template = "blocks/code_block.html"
