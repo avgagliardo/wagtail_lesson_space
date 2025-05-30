@@ -1,0 +1,11 @@
+{% load wagtailcore_tags %}
+
+<div class="callout-block callout-{{ self.style }}">
+  {% if self.title %}
+    <div class="callout-title">{{ self.title }}</div>
+  {% endif %}
+  <div class="callout-body">
+    {{ self.body|richtext }}
+  </div>
+</div>
+

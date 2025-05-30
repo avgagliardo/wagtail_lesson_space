@@ -24,7 +24,8 @@
         {% endif %}
 
         {# Global stylesheets #}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/lesson_space.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/lesson_space.css' %}?v={{ settings.STATIC_VERSION }}">
+
 
         {% block extra_css %}
         {# Override this in templates to add extra stylesheets #}
