@@ -45,3 +45,54 @@ class ParagraphBlock(blocks.RichTextBlock):
     #     if len(value) > 100:
     #         raise ValidationError("Heading too long.")
     #     return super().clean(value)
+
+
+class CalloutBlock(blocks.StructBlock):
+    """
+    A stylized callout block with dynamic style choices.
+    """
+    title = blocks.CharBlock(required=False, help_text="Optional short heading")
+    body = blocks.RichTextBlock(features=["bold", "italic", "link", "ul", "ol"])
+    style = blocks.ChoiceBlock(choices=[], help_text="Visual style")
+
+    def __init__(self, *args, **kwargs):
+        styles = kwargs.pop("styles", [
+            ("info", "Info"),
+            ("warning", "Warning"),
+            ("success", "Success"),
+            ("danger", "Danger"),
+            ("note", "Note"),
+        ])
+        super().__init__(*args, **kwargs)
+        self.child_blocks["style"].choices = styles
+
+    class Meta:
+        icon = "placeholder"
+        label = "Callout"
+        help_text = "Stylized box for warnings, tips, notes, etc."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
