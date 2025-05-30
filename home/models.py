@@ -14,7 +14,13 @@ from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
+from wagtail.fields import StreamField
+from wagtail.admin.panels import FieldPanel
+from wagtail import blocks
+from wagtail.images.blocks import ImageChooserBlock
+from modelcluster.fields import ParentalKey
 
+from porpoise_blocks.common import ESSENTIAL_BLOCKS
 
 class LessonPageTag(TaggedItemBase):
     content_object = ParentalKey(
@@ -30,18 +36,20 @@ class LessonPage(Page):
 
     tags = ClusterTaggableManager(through=LessonPageTag, blank=True)
 
-    body = StreamField([
-        ("heading", blocks.CharBlock()),
-        ("paragraph", blocks.RichTextBlock()),
-        ("image", ImageChooserBlock()),
-        ("latex", blocks.TextBlock(help_text="Wrap your LaTeX in $$...$$ or \\(...\\)")),
-    ], use_json_field=True)
+    # Merge inline blocks + reusable blocks
+    body = StreamField(
+        ESSENTIAL_BLOCKS + [
+            ("image", ImageChooserBlock()),
+            ("latex", blocks.TextBlock(help_text="Wrap your LaTeX in $$...$$ or \\(...\\)")),
+        ],
+        use_json_field=True
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel("subtitle"),
         FieldPanel("domain"),
         FieldPanel("tags"),
-        FieldPanel("body"), 
+        FieldPanel("body"),
     ]
 
 class HomePage(Page):

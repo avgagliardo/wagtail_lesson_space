@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     #'wagtail.contrib.modeladmin',  
     'wagtail_modeladmin',    
     "home",
+    "porpoise_blocks",
     #Base
     "search",
     "wagtail.contrib.forms",
