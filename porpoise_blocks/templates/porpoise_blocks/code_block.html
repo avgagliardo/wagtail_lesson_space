@@ -1,9 +1,13 @@
 {# code_block.html #}
-<pre class="code-block code-style-{{ self.style|default:'default' }}" data-lang="{{ self.language }}">
-    {% if self.caption %}
-        <div class="code-caption">{{ self.caption }}</div>
-    {% endif %}
-    <code class="language-{{ self.language|default:'text' }}">
-        {{ self.code|escape }}
-    </code>
+{% load wagtailcore_tags %}
+
+<pre class="code-block{% if self.style %} {{ self.style }}{% endif %}" data-lang="{{ self.language }}">
+  {% if self.caption %}
+    <div class="code-caption">{{ self.caption }}</div>
+  {% endif %}
+  <code class="language-{{ self.language }}">
+    {% for line in self.code.splitlines %}
+<span class="code-line">{{ line|escape }}</span>
+    {% endfor %}
+  </code>
 </pre>

@@ -130,7 +130,8 @@ class QuoteBlock(blocks.StructBlock):
     class Meta:
         icon = "openquote"
         label = "Quote"
-        template = "blocks/quote_block.html"
+        template = "porpoise_blocks/quote_block.html"
+
 
 # Code Block
 class CodeBlock(blocks.StructBlock):
@@ -171,4 +172,5 @@ class CodeBlock(blocks.StructBlock):
     class Meta:
         icon = "code"
         label = "Code"
-        template = "blocks/code_block.html"
+        template = "porpoise_blocks/code_block.html"
+
