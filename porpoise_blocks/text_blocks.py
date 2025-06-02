@@ -168,7 +168,7 @@ class CodeBlock(blocks.StructBlock):
         label="Style",
         help_text="Visual style of the code block."
     )
-
+    
     class Meta:
         icon = "code"
         label = "Code"

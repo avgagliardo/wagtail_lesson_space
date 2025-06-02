@@ -52,6 +52,25 @@
       <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-json.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-html.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-javascript.min.js"></script>
+
+      <!-- Copy Button for code blocks -->
+      <script>
+      function copyCode(button) {
+        const code = button.parentElement.querySelector("code");
+        const text = code.innerText;
+
+        navigator.clipboard.writeText(text).then(() => {
+          button.textContent = "Copied!";
+          setTimeout(() => button.textContent = "Copy", 2000);
+        }).catch(err => {
+          console.error("Copy failed", err);
+          button.textContent = "Failed";
+        });
+      }
+      </script>
+
+
+
     {% endblock %}
   </body>
 </html>

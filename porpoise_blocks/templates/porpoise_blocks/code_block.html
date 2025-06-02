@@ -1,6 +1,12 @@
 {% load wagtailcore_tags %}
-
 {% if self.caption %}
-  <div class="code-caption">{{ self.caption }}</div>
+<div class="code-caption">{{ self.caption }}</div>
 {% endif %}
-<pre class="line-numbers language-{{ self.language }}"><code>{{ self.code|escape }}</code></pre>
+
+<div class="code-wrapper">
+  <button class="copy-button" onclick="copyCode(this)">Copy</button>
+
+<pre class="line-numbers language-{{ self.language }}">
+  <code>{{ self.code|escape|cut:"\n"|add:"" }}</code>
+</pre>
+</div>
