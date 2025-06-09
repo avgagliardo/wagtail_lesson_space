@@ -86,23 +86,6 @@ class CalloutBlock(StructBlock):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Quote Block
 class QuoteBlock(blocks.StructBlock):
     quote = blocks.RichTextBlock(
@@ -135,6 +118,7 @@ class QuoteBlock(blocks.StructBlock):
 
 # Code Block
 class CodeBlock(blocks.StructBlock):
+    heading = CharBlock(required=False)
     language = blocks.ChoiceBlock(
         choices=[
             ("text", "Plain Text"),
