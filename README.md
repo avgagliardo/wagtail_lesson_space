@@ -65,7 +65,7 @@ python manage.py runserver
 Access the admin interface at http://localhost:8000/admin.
 
 
-## Static Media Installation (may be necessry):
+## Static Media Installation (may be necessary):
 ### 1. **Create Missing Static Paths**
 
 The following static directories were not present and were added:
