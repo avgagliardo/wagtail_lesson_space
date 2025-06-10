@@ -64,6 +64,89 @@ python manage.py runserver
 
 Access the admin interface at http://localhost:8000/admin.
 
+
+## Static Media Installation (may be necessry):
+### 1. **Create Missing Static Paths**
+
+The following static directories were not present and were added:
+
+```
+lesson_space/static/css/
+lesson_space/static/js/
+```
+
+---
+
+### 2. **Add Referenced Files**
+
+Missing files referenced by `{% static %}` in templates were created with placeholder content:
+
+| File Path                           | Type | Contents                              |
+|------------------------------------|------|----------------------------------------|
+| `lesson_space/static/css/lesson_space.css` | CSS  | `body { font-family: sans-serif; }`    |
+| `lesson_space/static/css/welcome_page.css` | CSS  | `body.welcome { background: white; }`  |
+| `lesson_space/static/js/lesson_space.js`   | JS   | `console.log("lesson space loaded");`  |
+
+---
+
+### 3. **Reset Staticfiles Manifest**
+
+The previous static files output directory and manifest were cleared:
+
+```bash
+rm -rf static/
+python manage.py collectstatic --noinput
+```
+
+This ensured all referenced assets were hashed and collected properly.
+
+---
+
+### 4. **Test Verification**
+
+The following test suite was used to verify fixes:
+
+```bash
+pytest home
+```
+
+Errors related to static asset resolution were eliminated once files were added and `collectstatic` was re-run.
+
+
+
+---
+
+## 📜 Automation Script
+
+A shell script (`patch_static_files.sh`) was created to automate the above steps. It is documented in `README.md`.
+
+---
+
+## 📝 Final Notes
+
+- **ManifestStaticFilesStorage is strict**: all files referenced via `{% static %}` must exist on disk and be included in `STATICFILES_DIRS`
+- Ensure changes to templates that add new static assets are always followed by file creation and `collectstatic`
+- This patch unblocks fresh installs and CI runs that previously failed on rendering tests
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Block System
 
 All reusable StreamField blocks are implemented in the `porpoise_blocks` app. This block library is modular and supports the following categories:
