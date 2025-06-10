@@ -110,7 +110,7 @@ The following test suite was used to verify fixes:
 pytest home
 ```
 
-Errors related to static asset resolution were eliminated once files were added and `collectstatic` was re-run.
+
 
 
 
@@ -118,7 +118,34 @@ Errors related to static asset resolution were eliminated once files were added 
 
 ## 📜 Automation Script
 
-A shell script (`patch_static_files.sh`) was created to automate the above steps. It is documented in `README.md`.
+```bash
+#!/bin/bash
+
+echo "🔧 Creating required static file structure..."
+
+mkdir -p lesson_space/static/css
+mkdir -p lesson_space/static/js
+
+echo "📄 Stubbing lesson_space.css"
+echo "body { font-family: sans-serif; }" > lesson_space/static/css/lesson_space.css
+
+echo "📄 Stubbing welcome_page.css"
+echo "body.welcome { background: white; }" > lesson_space/static/css/welcome_page.css
+
+echo "📄 Stubbing lesson_space.js"
+echo "console.log('lesson space loaded');" > lesson_space/static/js/lesson_space.js
+
+echo "🧹 Clearing previous static output..."
+rm -rf static/
+
+echo "📦 Collecting static files..."
+python manage.py collectstatic --noinput
+
+echo "✅ Static media stubbed and collected."
+
+```
+
+
 
 ---
 
