@@ -1,16 +1,34 @@
 # Lesson Space
 
-Welcome to the Wagtail Lesson Space project. This project includes educational tools and block-based content management features powered by Wagtail CMS.
+Welcome to the Wagtail Lesson Space project. This is a Wagtail-based platform designed for educational publishing. It supports LaTeX rendering, modular StreamField blocks, PDF embedding, and flexible page structures tailored for knowledge repositories.
+
 
 ---
 
 ## 📚 Project Documentation
 
-| Section                        | Description                                      |
-|--------------------------------|--------------------------------------------------|
-| [▶️ LaTeX Rendering (KaTeX)](#️latex-rendering-katex) | Guide to writing and rendering math in LaTeX |
-
+| Section                         | Description                                      |
+|----------------------------------|--------------------------------------------------|
+| [▶️ Overview](#️project-overview)               | Project goals, architecture, and features       |
+| [▶️ LaTeX Rendering (KaTeX)](#️latex-rendering-katex) | Guide to writing and rendering math in LaTeX    |
+| [▶️ Available StreamField Blocks](#️available-streamfield-blocks) | Summary of reusable block types                 |
+| [▶️ Homepage Customization](#️homepage-customization) | Explanation of the modified homepage and layout |
 ---
+
+<details>
+<summary id="️project-overview"><strong>🧠 Project Overview</strong></summary>
+
+<br>
+
+
+This section provides an overview of the Lesson Space project's architecture and goals.
+- Wagtail CMS foundation
+- Modular block definitions in `porpoise_blocks`
+- Clean reverse-proxy readiness for NGINX
+- Python environment bootstrapped with `pyenv`
+
+
+</details>
 
 <details>
 <summary id="️latex-rendering-katex"><strong>📐 LaTeX Rendering (KaTeX)</strong></summary>
@@ -105,5 +123,36 @@ KaTeX is under active development — if something doesn’t render as expected,
 - KaTeX docs for function support
 
 Feature requests or bug reports for this Wagtail integration can be submitted via the project issue tracker.
+
+</details>
+
+
+<details>
+<summary id="️available-streamfield-blocks"><strong>🧱 Available StreamField Blocks</strong></summary>
+
+<br>
+
+
+A curated set of blocks are implemented in `porpoise_blocks/`:
+- `QuoteBlock`: Styled pull-quotes with optional metadata
+- `CodeBlock`: Syntax-highlighted code with copy/dark mode
+- `LaTeXBlock`: Rendered math via KaTeX
+- Additional planned: image annotation, list blocks with interactivity
+
+
+</details>
+
+<details>
+<summary id="️homepage-customization"><strong>🖼️ Homepage Customization</strong></summary>
+
+<br>
+
+
+The homepage has been customized with:
+- Custom `HomePage` model
+- Clean static CSS served under `/static/css/lesson_space.css`
+- Navigation-ready base layout using `base.html`
+- Unit tests ensure static files and homepage render correctly
+
 
 </details>
