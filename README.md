@@ -7,12 +7,14 @@ Welcome to the Wagtail Lesson Space project. This is a Wagtail-based platform de
 
 ## 📚 Project Documentation
 
-| Section                         | Description                                      |
-|----------------------------------|--------------------------------------------------|
-| [▶️ Overview](#️project-overview)               | Project goals, architecture, and features       |
+| Section                                      | Description                                      |
+|---------------------------------------------|--------------------------------------------------|
+| [▶️ Overview](#️project-overview)             | Project goals, architecture, and features       |
+| [▶️ Installation & Static File Setup](#️installation--static-file-setup) | Setup guide, static patching, collectstatic     |
 | [▶️ LaTeX Rendering (KaTeX)](#️latex-rendering-katex) | Guide to writing and rendering math in LaTeX    |
 | [▶️ Available StreamField Blocks](#️available-streamfield-blocks) | Summary of reusable block types                 |
 | [▶️ Homepage Customization](#️homepage-customization) | Explanation of the modified homepage and layout |
+
 ---
 
 <details>
@@ -29,6 +31,75 @@ This section provides an overview of the Lesson Space project's architecture and
 
 
 </details>
+
+
+<details>
+<summary id="️installation--static-file-setup"><strong>🛠️ Installation & Static File Setup</strong></summary>
+
+<br>
+
+## 🔧 Initial Setup (Local Dev)
+
+Clone the repository and enter the project directory:
+
+```bash
+git clone https://github.com/avgagliardo/wagtail_lesson_space.git
+cd wagtail_lesson_space
+```
+
+### 🐍 Python Environment (via `pyenv`)
+
+```bash
+pyenv install 3.11.8
+pyenv virtualenv 3.11.8 wagtail-lessons-env
+pyenv activate wagtail-lessons-env
+pip install -r requirements.txt
+```
+
+### 🗂️ Static File Structure & Manifest Setup
+
+This project uses `ManifestStaticFilesStorage`, which requires all referenced static assets to:
+
+- Exist on disk
+- Be properly collected into a hashed manifest
+- Match `{% static %}` template references
+
+Run the provided setup script:
+
+```bash
+bash patch_static_files.sh
+```
+
+This script:
+- Creates required directories (`lesson_space/static/css`, `.../js`)
+- Writes minimal placeholder content to:
+  - `lesson_space.css`
+  - `welcome_page.css`
+  - `lesson_space.js`
+- Runs `collectstatic` to generate the manifest
+
+### ✅ Migrations & Superuser
+
+```bash
+python manage.py migrate
+python manage.py createsuperuser
+```
+
+### 🧪 Run Tests
+
+```bash
+pytest
+```
+
+Tests in the `home` app verify:
+- Static files are collected and served
+- Homepage renders successfully
+- `LessonPage` logic and URLs behave as expected
+
+</details>
+
+
+
 
 <details>
 <summary id="️latex-rendering-katex"><strong>📐 LaTeX Rendering (KaTeX)</strong></summary>
